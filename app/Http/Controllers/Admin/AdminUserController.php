@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use UserTransformer;
 
 class AdminUserController extends Controller
 {
@@ -16,11 +17,14 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        if (!$users = User::with('roles.permissions')->get()) { 
+        if (!$users = User::with('roles')->get()) {
             throw new NotFoundHttpException('Users not found');
         }
 
         return $users;
+        // return $this->response
+        //             ->collection($users, new UserTransformer)
+        //             ->setStatusCode(200);
     }
 
     /**
