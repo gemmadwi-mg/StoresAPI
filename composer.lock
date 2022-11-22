@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb0c2a94fb1cfeb434be38d8d54fe030",
+    "content-hash": "b8f6c53cd803faaaf9815cafbed5f26d",
     "packages": [
         {
             "name": "api-ecosystem-for-laravel/dingo-api",
@@ -8597,7 +8597,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "tymon/jwt-auth": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
