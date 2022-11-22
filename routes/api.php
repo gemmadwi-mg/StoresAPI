@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 $api = app('Dingo\Api\Routing\Router');
 
+
 $api->version('v1', function ($api) {
     $api->get('hello', function () {
         return 'Hello Stores API';
@@ -34,8 +35,15 @@ $api->version('v1', function ($api) {
         });
     });
 
+    $api->group(['prefix' => 'me', 'middleware' => 'jwt.auth'], function ($api) {
+        $api->get('/profile', 'App\Http\Controllers\UserProfileController@index');
+        $api->post('/profile', 'App\Http\Controllers\UserProfileController@store');
+        $api->put('/profile', 'App\Http\Controllers\UserProfileController@update');
+        $api->delete('/profile', 'App\Http\Controllers\UserProfileController@delete');
+    });
 
     $api->group(['middleware' => ['role:super-admin'], 'prefix' => 'admin'], function ($api) {
         $api->get('/users', 'App\Http\Controllers\Admin\AdminUserController@index');
+        
     });
 });
