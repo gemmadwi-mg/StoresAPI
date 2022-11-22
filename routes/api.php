@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +44,11 @@ $api->version('v1', function ($api) {
     });
 
     $api->group(['middleware' => ['role:super-admin'], 'prefix' => 'admin'], function ($api) {
-        $api->get('/users', 'App\Http\Controllers\Admin\AdminUserController@index');
-        
+        $api->resource('users', AdminUserController::class);
+        $api->post('users/{id}/suspend', 'App\Http\Controllers\Admin\AdminUserController@suspend');
+        $api->post('users/{id}/activate', 'App\Http\Controllers\Admin\AdminUserController@activate');
+        $api->get('users/{id}/roles', 'App\Http\Controllers\Admin\AdminRolesController@show');
+        $api->get('users/{id}/permissions', 'App\Http\Controllers\Admin\AdminPermissionsController@show');
+        $api->post('users/{id}/roles', 'App\Http\Controllers\Admin\AdminRolesController@changeRole');
     });
 });
