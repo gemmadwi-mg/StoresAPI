@@ -31,22 +31,7 @@ class UserSeeder extends Seeder
                     $user->assignRole('system-admin');
                 }
             );
-        User::factory()->count(4)
-            ->has(UserProfile::factory(1))
-            ->create()
-            ->each(
-                function ($user) {
-                    $user->assignRole('store-owner');
-                }
-            );
-        User::factory()->count(6)
-            ->has(UserProfile::factory(1))
-            ->create()
-            ->each(
-                function ($user) {
-                    $user->assignRole('store-admin');
-                }
-            );
+        
         User::factory()->count(10)
             ->has(UserProfile::factory(1))
             ->create()

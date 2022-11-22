@@ -56,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function setPasswordAttribute($password)
     {
-        if(!empty($password)) { 
+        if (!empty($password)) {
             $this->attributes['password'] = bcrypt($password);
         }
     }
@@ -64,5 +64,10 @@ class User extends Authenticatable implements JWTSubject
     public function userProfile()
     {
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function stores()
+    {
+        return $this->hasMany(Store::class, 'owner_id');
     }
 }
