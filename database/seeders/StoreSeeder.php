@@ -17,7 +17,7 @@ class StoreSeeder extends Seeder
     public function run()
     {
         $fashionStore = Store::factory(1)->hasAttached(
-            User::factory()->count(1)
+            User::factory()->count(2)
                 ->has(UserProfile::factory(1))
                 ->create()
                 ->each(

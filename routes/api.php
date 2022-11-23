@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,5 +51,12 @@ $api->version('v1', function ($api) {
         $api->get('users/{id}/roles', 'App\Http\Controllers\Admin\AdminRolesController@show');
         $api->get('users/{id}/permissions', 'App\Http\Controllers\Admin\AdminPermissionsController@show');
         $api->post('users/{id}/roles', 'App\Http\Controllers\Admin\AdminRolesController@changeRole');
+    });
+
+    $api->group(['middleware' => ['role:store-owner'], 'prefix' => 'owner'], function ($api) {
+        $api->post('stores', 'App\Http\Controllers\StoreController@store');
+        $api->group(['middleware' => 'isStoreOwner'], function ($api) {
+            $api->resource('stores', StoreController::class, ['except' => ['store']]);
+        });
     });
 });
