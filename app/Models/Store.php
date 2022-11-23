@@ -23,4 +23,9 @@ class Store extends Model
     {
         return $this->belongsToMany(User::class, 'store_admins');
     }
+
+    public function brands()
+    {
+        return $this->belongsToMany(Brand::class, 'brand_store');
+    }
 }
