@@ -30,6 +30,11 @@ $api->version('v1', function ($api) {
         return 'Hello Stores API';
     });
 
+    $api->get('categories', 'App\Http\Controllers\CategoryController@index');
+    $api->get('categories/{id}', 'App\Http\Controllers\CategoryController@show');
+
+    $api->post('/signup', 'App\Http\Controllers\UserController@store');
+
     $api->group(['prefix' => 'auth'], function ($api) {
         $api->post('/signup', 'App\Http\Controllers\UserController@store');
         $api->post('/login', 'App\Http\Controllers\Auth\AuthController@login');
@@ -53,6 +58,9 @@ $api->version('v1', function ($api) {
         $api->get('users/{id}/roles', 'App\Http\Controllers\Admin\AdminRolesController@show');
         $api->get('users/{id}/permissions', 'App\Http\Controllers\Admin\AdminPermissionsController@show');
         $api->post('users/{id}/roles', 'App\Http\Controllers\Admin\AdminRolesController@changeRole');
+        $api->post('products/categories', 'App\Http\Controllers\CategoryController@store');
+        $api->put('products/categories/{id}', 'App\Http\Controllers\CategoryController@update');
+        $api->delete('products/categories/{id}', 'App\Http\Controllers\CategoryController@destroy');
     });
 
     $api->group(['middleware' => ['role:store-owner'], 'prefix' => 'owner'], function ($api) {
