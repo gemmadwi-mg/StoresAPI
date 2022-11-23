@@ -19,5 +19,8 @@ class Brand extends Model
         return $this->belongsToMany(Store::class, 'brand_store');
     }
 
-    
+    public function productLines()
+    {
+        return $this->belongsToMany(ProductLine::class, 'brand_product_line');
+    }
 }

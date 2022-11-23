@@ -154,6 +154,8 @@ class BrandController extends Controller
         } catch (HttpException $th) {
             throw $th;
         }
+
+        return response()->json(['message' => 'Nothing to update'], 200);
     }
 
     /**

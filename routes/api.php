@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductLineController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,7 @@ $api->version('v1', function ($api) {
         $api->group(['middleware' => 'isStoreOwner'], function ($api) {
             $api->resource('stores', StoreController::class, ['except' => ['store']]);
             $api->resource('stores/{store}/brands', BrandController::class);
+            $api->resource('stores/{store}/brands/{brands}/productlines', ProductLineController::class);
         });
     });
 });
